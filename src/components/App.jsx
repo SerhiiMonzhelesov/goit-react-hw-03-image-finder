@@ -11,7 +11,7 @@ class App extends Component {
   state = {
     data: [],
     searchImagesName: '',
-    numPage: 1,
+    numPage: null,
     perPage: 12,
     totalPages: null,
     isLoading: false,
@@ -36,7 +36,10 @@ class App extends Component {
         );
         const allPages = Math.ceil(dataImages.totalHits / perPage);
         this.setState(prevState => ({
-          data: [...prevState.data, ...dataImages.hits],
+          data:
+            numPage === 1
+              ? dataImages.hits
+              : [...prevState.data, ...dataImages.hits],
           totalPages: allPages,
         }));
       } catch (error) {
@@ -45,7 +48,11 @@ class App extends Component {
         this.setState({ isLoading: false });
       }
     }
-    if (prevState.data !== this.state.data && this.state.numPage !== 1) {
+    if (
+      prevState.data !== this.state.data &&
+      numPage !== 1 &&
+      numPage !== this.state.totalPages
+    ) {
       this.loadMoreRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }
@@ -58,21 +65,16 @@ class App extends Component {
     this.setState({
       searchImagesName: searchValue,
       numPage: 1,
-      data: [],
-      totalPages: null,
     });
   };
 
   toggleModal = dataModal => {
-    console.log(dataModal);
     if (this.state.isShowModal) {
-      // logic to close the modal
       this.setState(prevState => ({
         isShowModal: !prevState.isShowModal,
         dataModalImg: null,
       }));
     } else {
-      // logic to open the modal (urlLargeImage, tags)
       this.setState(prevState => ({
         isShowModal: !prevState.isShowModal,
         dataModalImg: dataModal,
@@ -92,7 +94,6 @@ class App extends Component {
           />
         )}
         {this.state.data.length > 0 &&
-          this.state.totalPages > 1 &&
           this.state.totalPages !== this.state.numPage && (
             <Button
               handleLoadMore={this.handleLoadMore}
