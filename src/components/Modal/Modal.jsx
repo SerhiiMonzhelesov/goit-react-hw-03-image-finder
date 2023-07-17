@@ -3,6 +3,7 @@ import StyledModal from './StyledModal';
 import StyledModalOverlay from './StyledModalOverlay';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import PropTypes from 'prop-types';
 
 class Modal extends Component {
   componentDidMount() {
@@ -42,3 +43,11 @@ class Modal extends Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  dataModalImg: PropTypes.shape({
+    tags: PropTypes.string.isRequired,
+    urlLargeImage: PropTypes.string.isRequired,
+  }).isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};

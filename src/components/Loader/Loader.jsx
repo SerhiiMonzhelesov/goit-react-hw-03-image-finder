@@ -1,5 +1,4 @@
 import { MutatingDots } from 'react-loader-spinner';
-import StyledLoader from './StyledLoader';
 
 function Loader() {
   return (

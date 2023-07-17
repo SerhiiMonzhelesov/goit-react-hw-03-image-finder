@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import StyledSearchBar from './StyledSearchBar';
 import { CiSearch } from 'react-icons/ci';
+import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
   state = { searchNameImg: '' };
@@ -38,3 +39,7 @@ class SearchBar extends Component {
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};

@@ -1,5 +1,6 @@
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import StyledImageGallery from './StyledImageGallery';
+import PropTypes from 'prop-types';
 
 function ImageGallery({ images, toggleModal }) {
   return (
@@ -20,3 +21,14 @@ function ImageGallery({ images, toggleModal }) {
 }
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};

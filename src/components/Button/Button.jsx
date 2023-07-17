@@ -1,5 +1,6 @@
 import StyledButton from './StyledButton';
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 
 const Button = forwardRef(({ handleLoadMore }, ref) => {
   return (
@@ -10,3 +11,7 @@ const Button = forwardRef(({ handleLoadMore }, ref) => {
 });
 
 export default Button;
+
+Button.propTypes = {
+  handleLoadMore: PropTypes.func.isRequired,
+};

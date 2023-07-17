@@ -1,11 +1,12 @@
 import StyledImageGalleryItem from './StyledImageGalleryItem';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import PropTypes from 'prop-types';
 
-function ImageGalleryItem({ id, tags, urlImage, urlLargeImage, toggleModal }) {
+function ImageGalleryItem({ tags, urlImage, urlLargeImage, toggleModal }) {
   return (
     <>
-      <StyledImageGalleryItem key={id}>
+      <StyledImageGalleryItem>
         <img
           data-src={urlImage}
           alt={tags}
@@ -18,3 +19,10 @@ function ImageGalleryItem({ id, tags, urlImage, urlLargeImage, toggleModal }) {
 }
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  tags: PropTypes.string.isRequired,
+  urlImage: PropTypes.string.isRequired,
+  urlLargeImage: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};

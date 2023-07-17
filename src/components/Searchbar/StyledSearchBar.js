@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { CiSearch } from 'react-icons/ci';
 
 const StyledSearchBar = styled.header`
   top: 0;
