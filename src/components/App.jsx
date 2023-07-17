@@ -17,6 +17,7 @@ class App extends Component {
     isLoading: false,
     isShowModal: false,
     dataModalImg: null,
+    errorMessage: null,
   };
 
   loadMoreRef = createRef();
@@ -43,7 +44,7 @@ class App extends Component {
           totalPages: allPages,
         }));
       } catch (error) {
-        console.log(error);
+        this.setState({ errorMessage: error.response.data });
       } finally {
         this.setState({ isLoading: false });
       }
@@ -83,26 +84,30 @@ class App extends Component {
   };
 
   render() {
+    const {
+      data,
+      numPage,
+      totalPages,
+      isLoading,
+      errorMessage,
+      isShowModal,
+      dataModalImg,
+    } = this.state;
+
     return (
       <Container>
         <SearchBar handleSubmit={this.handleSubmit} />
-        {this.state.isLoading && <Loader />}
-        {this.state.data.length > 0 && (
-          <ImageGallery
-            images={this.state.data}
-            toggleModal={this.toggleModal}
-          />
+        {isLoading && <Loader />}
+        {errorMessage && <>Ooops... {errorMessage}</>}
+        {data.length > 0 && (
+          <ImageGallery images={data} toggleModal={this.toggleModal} />
         )}
-        {this.state.data.length > 0 &&
-          this.state.totalPages !== this.state.numPage && (
-            <Button
-              handleLoadMore={this.handleLoadMore}
-              ref={this.loadMoreRef}
-            />
-          )}
-        {this.state.isShowModal && (
+        {data.length > 0 && totalPages !== numPage && (
+          <Button handleLoadMore={this.handleLoadMore} ref={this.loadMoreRef} />
+        )}
+        {isShowModal && (
           <Modal
-            dataModalImg={this.state.dataModalImg}
+            dataModalImg={dataModalImg}
             toggleModal={this.toggleModal}
           ></Modal>
         )}

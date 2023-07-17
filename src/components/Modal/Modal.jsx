@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import StyledModal from './StyledModal';
 import StyledModalOverlay from './StyledModalOverlay';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 class Modal extends Component {
   componentDidMount() {
@@ -28,7 +30,11 @@ class Modal extends Component {
     return (
       <StyledModalOverlay onClick={this.handleClickOverlay}>
         <StyledModal>
-          <img src={urlLargeImage} alt={tags} loading="lazy" />
+          <img
+            data-src={urlLargeImage}
+            alt={tags}
+            className="lazyload blur-up"
+          />
         </StyledModal>
       </StyledModalOverlay>
     );

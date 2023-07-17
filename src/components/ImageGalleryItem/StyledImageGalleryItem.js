@@ -14,6 +14,15 @@ const StyledImageGalleryItem = styled.li`
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  & .blur-up {
+    filter: blur(5px);
+    transition: filter 400ms;
+  }
+
+  & .blur-up.lazyloaded {
+    filter: blur(0);
+  }
+
   &:hover img {
     transform: scale(1.03);
     cursor: zoom-in;

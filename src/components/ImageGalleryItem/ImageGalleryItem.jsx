@@ -1,13 +1,15 @@
 import StyledImageGalleryItem from './StyledImageGalleryItem';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 function ImageGalleryItem({ id, tags, urlImage, urlLargeImage, toggleModal }) {
   return (
     <>
       <StyledImageGalleryItem key={id}>
         <img
-          src={urlImage}
+          data-src={urlImage}
           alt={tags}
-          loading="lazy"
+          className="lazyload blur-up"
           onClick={() => toggleModal({ urlLargeImage, tags })}
         />
       </StyledImageGalleryItem>
