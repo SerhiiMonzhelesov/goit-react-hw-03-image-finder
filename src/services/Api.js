@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchImages = async (searchImagesName, numPage) => {
+const fetchImages = async (searchImagesName, numPage, perPage) => {
   const baseUrl = `https://pixabay.com/api/`;
   const paramsUrl = {
     params: {
@@ -10,12 +10,12 @@ const fetchImages = async (searchImagesName, numPage) => {
       orientation: 'horizontal',
       safesearch: 'true',
       page: numPage,
-      per_page: 12,
+      per_page: perPage,
     },
   };
   const images = await axios.get(baseUrl, paramsUrl);
 
-  return images.data.hits;
+  return images.data;
 };
 
 export default fetchImages;

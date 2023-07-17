@@ -12,7 +12,6 @@ class SearchBar extends Component {
 
   onInputChange = event => {
     this.setState({ searchNameImg: event.target.value });
-    console.log(event.target.value);
   };
 
   render() {

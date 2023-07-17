@@ -1,13 +1,18 @@
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import StyledImageGallery from './StyledImageGallery';
 
-function ImageGallery({ images }) {
+function ImageGallery({ images, toggleModal }) {
   return (
     <StyledImageGallery>
-      {images.map(({ id, webformatURL }) => {
+      {images.map(({ id, webformatURL, tags, largeImageURL }) => {
         return (
-          <li key={id}>
-            <img src={webformatURL} loading="lazy" width="300" />
-          </li>
+          <ImageGalleryItem
+            key={id}
+            urlImage={webformatURL}
+            urlLargeImage={largeImageURL}
+            tags={tags}
+            toggleModal={toggleModal}
+          />
         );
       })}
     </StyledImageGallery>
