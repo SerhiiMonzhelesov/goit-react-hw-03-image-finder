@@ -1,14 +1,13 @@
 import StyledButton from './StyledButton';
-import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const Button = forwardRef(({ handleLoadMore }, ref) => {
+const Button = ({ handleLoadMore }) => {
   return (
-    <StyledButton ref={ref} type="button" onClick={handleLoadMore}>
+    <StyledButton type="button" onClick={handleLoadMore}>
       Load more
     </StyledButton>
   );
-});
+};
 
 export default Button;
 

@@ -20,8 +20,6 @@ class App extends Component {
     errorMessage: null,
   };
 
-  loadMoreRef = createRef();
-
   async componentDidUpdate(prevProps, prevState) {
     const { searchImagesName, numPage, perPage } = this.state;
     if (
@@ -54,8 +52,16 @@ class App extends Component {
       numPage !== 1 &&
       numPage !== this.state.totalPages
     ) {
-      this.loadMoreRef.current.scrollIntoView({ behavior: 'smooth' });
+      this.scrollToBottom();
     }
+  }
+
+  scrollToBottom() {
+    const page = window.innerHeight;
+    window.scrollTo({
+      top: page * this.state.numPage,
+      behavior: 'smooth',
+    });
   }
 
   handleLoadMore = () => {
@@ -103,7 +109,7 @@ class App extends Component {
           <ImageGallery images={data} toggleModal={this.toggleModal} />
         )}
         {data.length > 0 && totalPages !== numPage && (
-          <Button handleLoadMore={this.handleLoadMore} ref={this.loadMoreRef} />
+          <Button handleLoadMore={this.handleLoadMore} />
         )}
         {isShowModal && (
           <Modal
