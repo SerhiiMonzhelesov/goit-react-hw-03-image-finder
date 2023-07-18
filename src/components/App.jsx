@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component } from 'react';
 import Container from './Container/Container';
 import SearchBar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -6,6 +6,7 @@ import fetchImages from '../services/Api';
 import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
+import { errorInfo, infoCorrectRequest } from 'services/report';
 
 class App extends Component {
   state = {
@@ -41,27 +42,14 @@ class App extends Component {
               : [...prevState.data, ...dataImages.hits],
           totalPages: allPages,
         }));
+        numPage === 1 && infoCorrectRequest(dataImages.totalHits);
       } catch (error) {
         this.setState({ errorMessage: error.response.data });
+        errorInfo(error);
       } finally {
         this.setState({ isLoading: false });
       }
     }
-    if (
-      prevState.data !== this.state.data &&
-      numPage !== 1 &&
-      numPage !== this.state.totalPages
-    ) {
-      this.scrollToBottom();
-    }
-  }
-
-  scrollToBottom() {
-    const page = window.innerHeight;
-    window.scrollTo({
-      top: page * this.state.numPage,
-      behavior: 'smooth',
-    });
   }
 
   handleLoadMore = () => {
