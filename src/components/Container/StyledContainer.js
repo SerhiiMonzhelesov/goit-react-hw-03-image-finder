@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
   color: #801111;
   font-size: 32px;
   text-align: center;
+  justify-items: center;
 `;
 
 export default StyledContainer;
