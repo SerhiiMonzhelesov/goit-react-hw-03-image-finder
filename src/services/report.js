@@ -23,4 +23,19 @@ function infoCorrectRequest(totalHits) {
   });
 }
 
-export { errorInfo, infoCorrectRequest };
+function infoEmptyRequest() {
+  Report.info(
+    'SORRY',
+    '"There are no images matching your search query. <br/><br/>Please try again"',
+    'OK',
+    {
+      width: '450px',
+      messageFontSize: '24px',
+      titleFontSize: '32px',
+      svgSize: '70px',
+      backOverlayClickToClose: true,
+    }
+  );
+}
+
+export { errorInfo, infoCorrectRequest, infoEmptyRequest };

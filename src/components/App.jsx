@@ -6,7 +6,11 @@ import fetchImages from '../services/Api';
 import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import { errorInfo, infoCorrectRequest } from 'services/report';
+import {
+  errorInfo,
+  infoCorrectRequest,
+  infoEmptyRequest,
+} from 'services/report';
 
 class App extends Component {
   state = {
@@ -42,7 +46,10 @@ class App extends Component {
               : [...prevState.data, ...dataImages.hits],
           totalPages: allPages,
         }));
-        numPage === 1 && infoCorrectRequest(dataImages.totalHits);
+        numPage === 1 &&
+          dataImages.hits.length &&
+          infoCorrectRequest(dataImages.totalHits);
+        !dataImages.totalHits && infoEmptyRequest();
       } catch (error) {
         this.setState({ errorMessage: error.response.data });
         errorInfo(error);
@@ -64,17 +71,17 @@ class App extends Component {
   };
 
   toggleModal = dataModal => {
-    if (this.state.isShowModal) {
-      this.setState(prevState => ({
-        isShowModal: !prevState.isShowModal,
-        dataModalImg: null,
-      }));
-    } else {
-      this.setState(prevState => ({
-        isShowModal: !prevState.isShowModal,
-        dataModalImg: dataModal,
-      }));
-    }
+    this.setState(prevState => {
+      return this.state.isShowModal
+        ? {
+            isShowModal: !prevState.isShowModal,
+            dataModalImg: null,
+          }
+        : {
+            isShowModal: !prevState.isShowModal,
+            dataModalImg: dataModal,
+          };
+    });
   };
 
   render() {
