@@ -71,16 +71,9 @@ class App extends Component {
   };
 
   toggleModal = dataModal => {
-    this.setState(prevState => {
-      return this.state.isShowModal
-        ? {
-            isShowModal: !prevState.isShowModal,
-            dataModalImg: null,
-          }
-        : {
-            isShowModal: !prevState.isShowModal,
-            dataModalImg: dataModal,
-          };
+    this.setState({
+      isShowModal: !this.state.isShowModal,
+      dataModalImg: dataModal || null,
     });
   };
 
